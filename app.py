@@ -4,7 +4,6 @@ from flask_login import LoginManager, login_user, current_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from models import User, db
 import requests
-import flask
 import datetime
 
 app = Flask(__name__)
@@ -73,19 +72,13 @@ def git_req():
             git_hub_username = request.form['git_hyb_username']
             git_hub_rep = request.form['git_hyb_rep']
             git_hub_request = request.form.get('TypeGitRequest')
-            # username = "natkaida"
-            # repository = "flask_projects"
-
             # url to request
             git_link = f"https://api.github.com/repos/{git_hub_username}/{git_hub_rep}"
             # make the request and return the json
             user_data = requests.get(git_link).json()
-            # print(user_data)
             if user_data.get('message') == 'Not Found':
                 flash('Такой репозиторий не был найден :(')
             else:
-                # pretty print JSON data
-                # pprint(user_data)
                 with open('buff.txt', 'w') as f:
                     f.write(git_hub_username + " ")
                     f.write(git_hub_rep + " ")
@@ -120,7 +113,8 @@ def info_about_rep():
         elif git_hub_request == "get_all_forks":
             link = f"repos/{git_hub_username}/{git_hub_rep}/forks"
         reply = requests.get(f'https://api.github.com/' + link).json()
-        # pprint(reply)
+        # Здесь вывод инфы
+        pprint(reply)
 
         return render_template('info_about_rep.html', reply=reply)
     else:
