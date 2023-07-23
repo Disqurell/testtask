@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--<script language="JavaScript">alert("Привет, мир!");</script>-->
+
+
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-20">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Вот информация про репозиторий </h1>
+                </div>
+                <div class="card-body">
+                    <label for="card-body" class="form-label">{{reply}}</label>
+                    <div class="text-center">
+                        <a href="{{ url_for('git_req') }}" class="btn btn-secondary">Назад</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
